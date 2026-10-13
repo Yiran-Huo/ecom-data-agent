@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "ecom-data": {
+      "command": "/Users/yh25/Desktop/Agent_10.10/ecom-agent/.venv/bin/python",
+      "args": ["/Users/yh25/Desktop/Agent_10.10/ecom-agent/mcp_server/server.py"],
+      "env": {
+        "ECOM_MCP_ENABLE_PYTHON": "0"
+      }
+    }
+  }
+}

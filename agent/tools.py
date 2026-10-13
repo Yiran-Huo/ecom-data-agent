@@ -1,9 +1,10 @@
 """
-Agent 的三个工具，以及给模型看的「工具说明书」。
+Agent 的工具，以及给模型看的「工具说明书」。
 
     describe_table(table)  看一张表有哪些字段、字段注释、3 行样例
     run_sql(query)         执行一条只读 SQL，返回最多 50 行
     run_python(code)       在独立进程里运行 Python（pandas / matplotlib），用来计算和画图
+    save_memory(note)      保存一条用户偏好到长期记忆（实现在 memory.py）
 
 所有工具都遵守同一个原则：输入是普通参数，返回一段文字；出错时返回错误说明，不抛异常。
 这样模型能看到错在哪里，自己改正。
@@ -21,6 +22,7 @@ import pandas as pd
 from sqlalchemy import text
 
 from agent.db import engine
+from agent.memory import save_note
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = ROOT / "outputs"
@@ -214,7 +216,14 @@ TOOL_SPECS = [
     ),
 ]
 
-TOOLS = {"describe_table": describe_table, "run_sql": run_sql, "run_python": run_python}
+# 长期记忆工具：只在正常对话时提供，评测时不提供（保证评测可复现）
+MEMORY_SPEC = _spec(
+    "save_memory",
+    "保存一条用户明确要求记住的偏好（例如「以后金额用万为单位」），下次对话依然有效。只在用户明确要求记住时调用。",
+    "note", "要记住的内容，一句话",
+)
+
+TOOLS = {"describe_table": describe_table, "run_sql": run_sql, "run_python": run_python, "save_memory": save_note}
 
 
 def call_tool(name: str, arguments: str) -> str:
