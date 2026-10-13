@@ -88,7 +88,7 @@ def main():
             for col in df.columns:
                 if df[col].map(lambda v: hasattr(v, "is_finite")).any():
                     df[col] = df[col].astype(float)
-            if len(df) > 12:   # 每日数据太长，只显示首尾和汇总
+            if "day" in df.columns:   # 每日数据太长，只显示首尾和汇总（按列名判断，而不是按行数）
                 print(pd.concat([df.head(5), df.tail(5)]).to_string(index=False, float_format=fmt))
                 print(f"（共 {len(df)} 天，GMV 最高：{df.loc[df['gmv'].idxmax(), 'day']}，"
                       f"最低：{df.loc[df['gmv'].idxmin(), 'day']}）")

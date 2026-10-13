@@ -14,6 +14,7 @@ import re
 import subprocess
 import sys
 import tempfile
+from decimal import Decimal
 from pathlib import Path
 
 import pandas as pd
@@ -43,6 +44,22 @@ def _query_df(sql: str, limit: int | None = None) -> pd.DataFrame:
         return pd.DataFrame(rows, columns=list(result.keys()))
 
 
+def _fmt_number(v):
+    """小数显示成完整的普通写法（4727987.34、0.1153），不用科学计数法 4.72799e+06；空值显示为 NULL。"""
+    if v is None or (isinstance(v, float) and pd.isna(v)):
+        return "NULL"   # 明确告诉模型这里是空值，而不是留一个空格子
+    if isinstance(v, (float, Decimal)):
+        return f"{float(v):.4f}".rstrip("0").rstrip(".")
+    return v
+
+
+def _to_table(df: pd.DataFrame) -> str:
+    """DataFrame → Markdown 表格文字。数字保留完整精度，避免模型拿到被四舍五入的近似值。"""
+    df = df.apply(lambda col: col.map(_fmt_number))
+    # disable_numparse：已经格式化好的数字字符串，不让 tabulate 再转回科学计数法
+    return df.to_markdown(index=False, disable_numparse=True)
+
+
 def _truncate(s: str, n: int = MAX_OUTPUT_CHARS) -> str:
     return s if len(s) <= n else s[:n] + f"\n…（输出过长，已截断，原长 {len(s)} 字符）"
 
@@ -66,8 +83,8 @@ def describe_table(table: str) -> str:
     except Exception as e:
         return f"错误：{getattr(e, 'orig', e)}"
     return (
-        f"表 {table}：{comment}\n\n字段：\n{cols.to_markdown(index=False)}"
-        f"\n\n样例（3 行）：\n{sample.to_markdown(index=False)}"
+        f"表 {table}：{comment}\n\n字段：\n{_to_table(cols)}"
+        f"\n\n样例（3 行）：\n{_to_table(sample)}"
     )
 
 
@@ -98,7 +115,7 @@ def run_sql(query: str) -> str:
 
     if df.empty:
         return "（查询结果为空）"
-    out = df.head(MAX_ROWS).to_markdown(index=False)
+    out = _to_table(df.head(MAX_ROWS))
     if len(df) > MAX_ROWS:
         out += f"\n（结果超过 {MAX_ROWS} 行，只显示前 {MAX_ROWS} 行。请用聚合、ORDER BY + LIMIT 缩小结果）"
     return _truncate(out)
@@ -116,6 +133,7 @@ matplotlib.use("Agg")                       # 不弹窗，只保存图片
 import matplotlib.pyplot as plt
 plt.rcParams["font.sans-serif"] = ["Arial Unicode MS", "PingFang SC", "Heiti TC", "SimHei", "Noto Sans CJK SC", "DejaVu Sans"]
 plt.rcParams["axes.unicode_minus"] = False  # 中文字体下正常显示负号
+plt.rcParams["axes.formatter.limits"] = (-7, 9)   # 坐标轴不要用科学计数法（避免出现 1e6）
 from agent.db import engine                 # 同样是只读账号
 # ---- 以下是模型写的代码 ----
 """
@@ -188,8 +206,8 @@ TOOL_SPECS = [
     ),
     _spec(
         "run_python",
-        "在独立进程中运行 Python，用于画图或 SQL 不方便做的计算。已预先导入 pd、plt，"
-        "并提供只读数据库连接 engine（用 pd.read_sql(sql, engine) 取数）。"
+        "在独立进程中运行 Python，用于画图或 SQL 不方便做的计算。pd、plt 和只读数据库连接 engine 已经准备好，"
+        "直接用 pd.read_sql(sql, engine) 取数；不要自己 import engine、不要 create_engine。"
         "图片必须用 plt.savefig('outputs/英文文件名.png', dpi=150, bbox_inches='tight') 保存；"
         "需要看结果请 print。限时 60 秒。",
         "code", "完整的 Python 代码",
