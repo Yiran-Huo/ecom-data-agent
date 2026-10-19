@@ -10,9 +10,14 @@
     2. 建模：从事件里拆出 products / categories / sessions
     3. 执行 sql/schema.sql 建表，批量写入数据
     4. 执行 sql/indexes.sql 建索引
-    5. 把清洗过程中的关键数字写入 data/load_report.json，verify_db.py 会用到
+    5. 生成派生表 user_first_seen（每个用户第一次出现的日期，用来区分新老用户）
+    6. 把清洗过程中的关键数字写入 data/load_report.json，verify_db.py 会用到
+    7. 清空分析工具的本地缓存 cache/（数据变了，旧缓存不能再用）
+
+数据量：10–11 月抽样后约 1,100 万行，整个过程大约需要 15–30 分钟。
 """
 import json
+import shutil
 import time
 
 import pandas as pd
@@ -153,16 +158,19 @@ def to_rows(frame: pd.DataFrame, cols: list[str]) -> list[tuple]:
 
 
 def insert_table(conn, table: str, frame: pd.DataFrame, cols: list[str]):
-    rows = to_rows(frame, cols)
+    """分批写入。每批只把 BATCH_SIZE 行转成 Python 元组，
+    不一次性转换整张表（1,100 万行全部转成元组会占用好几 GB 内存）。"""
     sql = f"INSERT INTO {table} ({', '.join(cols)}) VALUES ({', '.join(['%s'] * len(cols))})"
+    total = len(frame)
     start = time.time()
     with conn.cursor() as cur:
-        for i in range(0, len(rows), BATCH_SIZE):
-            cur.executemany(sql, rows[i:i + BATCH_SIZE])  # pymysql 会合并成多行 INSERT，比逐行快很多
+        for i in range(0, total, BATCH_SIZE):
+            rows = to_rows(frame.iloc[i:i + BATCH_SIZE], cols)
+            cur.executemany(sql, rows)  # pymysql 会合并成多行 INSERT，比逐行快很多
             conn.commit()
-            done = min(i + BATCH_SIZE, len(rows))
-            if done == len(rows) or (i // BATCH_SIZE) % 25 == 0:
-                log(f"  {table}: {done:,} / {len(rows):,} 行（{time.time() - start:.0f} 秒）")
+            done = min(i + BATCH_SIZE, total)
+            if done == total or (i // BATCH_SIZE) % 25 == 0:
+                log(f"  {table}: {done:,} / {total:,} 行（{time.time() - start:.0f} 秒）")
 
 
 def check_lengths(frames: dict):
@@ -200,13 +208,23 @@ def main():
         insert_table(conn, "events", events,
                      ["event_time", "event_type", "product_id", "price", "user_id", "user_session"])
 
-        log("执行 sql/indexes.sql 建索引（events 表较大，需要一两分钟）...")
+        log("执行 sql/indexes.sql 建索引（events 表较大，需要几分钟）...")
         run_sql_file(conn, ROOT / "sql" / "indexes.sql")
+
+        log("生成 user_first_seen（每个用户第一次出现的日期）...")
         with conn.cursor() as cur:
-            cur.execute("ANALYZE TABLE events, products, categories, sessions")  # 更新统计信息，查询计划更准
+            cur.execute("""
+                INSERT INTO user_first_seen (user_id, first_date)
+                SELECT user_id, MIN(DATE(event_time)) FROM events GROUP BY user_id""")
+            report["users_first_seen"] = cur.rowcount
+            conn.commit()
+            cur.execute("ANALYZE TABLE events, products, categories, sessions, user_first_seen")  # 更新统计信息
             cur.fetchall()
     finally:
         conn.close()
+
+    # 分析工具会把取过的数据缓存到 cache/，重新导入后必须清掉
+    shutil.rmtree(ROOT / "cache", ignore_errors=True)
 
     report["events_loaded"] = len(events)
     REPORT_PATH.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

@@ -80,10 +80,14 @@ def check_integrity(cur):
     p_events = one(cur, "SELECT COUNT(*) FROM events WHERE event_type = 'purchase' AND user_session IS NOT NULL")
     check("sessions 汇总的购买数与 events 一致", int(p_sessions) == p_events, f"{int(p_sessions):,} vs {p_events:,}")
 
+    n_first_seen = one(cur, "SELECT COUNT(*) FROM user_first_seen")
+    n_users = one(cur, "SELECT COUNT(DISTINCT user_id) FROM events")
+    check("user_first_seen 覆盖全部用户", n_first_seen == n_users, f"{n_first_seen:,} vs {n_users:,}")
+
     idx = one(cur, """
         SELECT COUNT(DISTINCT index_name) FROM information_schema.statistics
         WHERE table_schema = DATABASE() AND index_name LIKE 'idx_%'""")
-    check("索引已建好", idx >= 6, f"{idx} 个")
+    check("索引已建好", idx >= 7, f"{idx} 个")
     return counts
 
 

@@ -21,13 +21,13 @@ from pathlib import Path
 import pandas as pd
 from sqlalchemy import text
 
-from agent.db import engine
+from agent.db import base_database, get_engine
 from agent.memory import save_note
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = ROOT / "outputs"
 
-TABLES = {"events", "products", "categories", "sessions"}   # describe_table 的白名单
+TABLES = {"events", "products", "categories", "sessions", "user_first_seen"}   # describe_table 的白名单
 MAX_ROWS = 50            # run_sql 最多返回的行数
 SQL_TIMEOUT_MS = 15_000  # 单条 SQL 最长 15 秒
 PY_TIMEOUT_S = 60        # run_python 最长 60 秒
@@ -39,7 +39,7 @@ MAX_OUTPUT_CHARS = 3000  # 工具返回的文字最多这么长，防止撑爆�
 # ---------------------------------------------------------------------------
 def _query_df(sql: str, limit: int | None = None) -> pd.DataFrame:
     """执行 SQL 并返回 DataFrame。limit 不为空时最多只取 limit 行（不会把整张表拉进内存）。"""
-    with engine.connect() as conn:
+    with get_engine().connect() as conn:   # 当前数据库（评测时是场景库）
         conn.execute(text(f"SET SESSION MAX_EXECUTION_TIME = {SQL_TIMEOUT_MS}"))
         result = conn.execute(text(sql))
         rows = result.fetchmany(limit) if limit else result.fetchall()
@@ -75,12 +75,14 @@ def describe_table(table: str) -> str:
     if table not in TABLES:
         # 表名会被直接拼进 SQL，所以必须先和白名单比对，防止注入
         return f"错误：没有表 {table}。可用的表：{', '.join(sorted(TABLES))}"
+    # 表说明和字段注释从真实数据库读（评测用的场景库里是视图，没有注释）；样例从当前库读
+    base = base_database()
     try:
         comment = _query_df(
             "SELECT table_comment FROM information_schema.tables "
-            f"WHERE table_schema = DATABASE() AND table_name = '{table}'"
+            f"WHERE table_schema = '{base}' AND table_name = '{table}'"
         ).iat[0, 0]
-        cols = _query_df(f"SHOW FULL COLUMNS FROM {table}")[["Field", "Type", "Null", "Comment"]]
+        cols = _query_df(f"SHOW FULL COLUMNS FROM `{base}`.`{table}`")[["Field", "Type", "Null", "Comment"]]
         sample = _query_df(f"SELECT * FROM {table} LIMIT 3")
     except Exception as e:
         return f"错误：{getattr(e, 'orig', e)}"
@@ -136,7 +138,8 @@ import matplotlib.pyplot as plt
 plt.rcParams["font.sans-serif"] = ["Arial Unicode MS", "PingFang SC", "Heiti TC", "SimHei", "Noto Sans CJK SC", "DejaVu Sans"]
 plt.rcParams["axes.unicode_minus"] = False  # 中文字体下正常显示负号
 plt.rcParams["axes.formatter.limits"] = (-7, 9)   # 坐标轴不要用科学计数法（避免出现 1e6）
-from agent.db import engine                 # 同样是只读账号
+from agent.db import get_engine
+engine = get_engine()                       # 同样是只读账号，和 Agent 连的是同一个库
 # ---- 以下是模型写的代码 ----
 """
 

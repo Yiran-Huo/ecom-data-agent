@@ -7,6 +7,8 @@ CREATE INDEX idx_events_user      ON events(user_id);
 CREATE INDEX idx_events_type_time ON events(event_type, event_time);
 -- 按商品 join products：品牌、品类分析
 CREATE INDEX idx_events_product   ON events(product_id);
+-- 按时间范围取数（不限事件类型）：归因分析工具每次取「当天 + 前 7 天」的全部事件
+CREATE INDEX idx_events_time      ON events(event_time);
 -- 按会话 join sessions
 CREATE INDEX idx_events_session   ON events(user_session);
 -- 按用户查会话

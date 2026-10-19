@@ -1,5 +1,5 @@
 -- =====================================================================
--- ecom 数据库建表脚本（REES46 2019-10 按用户抽样，4 张表，星型模型）
+-- ecom 数据库建表脚本（REES46 2019-10 ~ 2019-11 按用户抽样，4 张表 + 1 张派生表，星型模型）
 -- 运行方式：由 scripts/load_data.py 自动执行（也可以手动：mysql -u root -p ecom < sql/schema.sql）
 -- 说明：
 --   * 不建外键：导入更快，表之间的关系由字段注释和 schema_notes.md 约定
@@ -70,6 +70,20 @@ CREATE TABLE sessions (
     PRIMARY KEY (user_session)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
   COMMENT='会话汇总表，用于会话级漏斗。注意：会话级转化率与用户级、事件级口径不同';
+
+
+-- ---------------------------------------------------------------------
+-- 5. user_first_seen：派生表，一行 = 一个用户第一次出现的日期
+--    由 scripts/load_data.py 在导入 events 之后用 SQL 生成，用于区分新老用户
+-- ---------------------------------------------------------------------
+DROP TABLE IF EXISTS user_first_seen;
+
+CREATE TABLE user_first_seen (
+    user_id    BIGINT NOT NULL COMMENT '用户 ID，主键',
+    first_date DATE   NOT NULL COMMENT '该用户在数据中第一次出现的日期（UTC）。数据从 2019-10-01 开始，所以 10 月上旬的「新用户」并不可靠',
+    PRIMARY KEY (user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+  COMMENT='用户首次出现日期（派生表）。某天的新用户 = first_date 等于当天的用户';
 
 
 -- 索引不在这里建：导入完数据之后由 scripts/load_data.py 执行 sql/indexes.sql
