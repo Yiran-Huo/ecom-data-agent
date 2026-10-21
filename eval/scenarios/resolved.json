@@ -1,0 +1,2152 @@
+[
+ {
+  "id": "d01",
+  "split": "dev",
+  "type": "brand_purchase_drop",
+  "date": "2019-10-27",
+  "db": "ecom_s_d01",
+  "question": "请排查 2019-10-27 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "d01",
+   "split": "dev",
+   "type": "brand_purchase_drop",
+   "date": "2019-10-27",
+   "target": {
+    "dim": "brand",
+    "rank": 1
+   },
+   "strength": 0.5
+  },
+  "targets": {
+   "brand": "apple"
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "brand": "apple"
+    },
+    "scope": "purchase",
+    "share": 0.5,
+    "unit": "event"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "brand",
+     "value": "apple",
+     "factor_accept": [
+      "CVR",
+      "F"
+     ],
+     "true_share": 0.8519
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.04102883434141402,
+   "base_z": -0.9004573778595362,
+   "scn_rel": -0.277095102869656,
+   "scn_z": -6.081389680034714,
+   "fetch_seconds": 8.1
+  },
+  "algo": {
+   "date": "2019-10-27",
+   "is_anomaly": true,
+   "direction": "down",
+   "change_pct": -0.2771,
+   "main_factor": "P",
+   "pattern": "concentrated",
+   "root_causes": [
+    {
+     "dimension": "brand",
+     "value": "apple",
+     "factor": "CVR",
+     "contribution_share": 0.8812,
+     "path": [
+      {
+       "dimension": "brand",
+       "value": "apple"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "hypotheses": []
+  },
+  "algo_score": {
+   "has_conclusion": true,
+   "top1": true,
+   "anomaly_ok": true,
+   "pattern_ok": true,
+   "false_alarm": null,
+   "factor_ok": null,
+   "cause_factor_ok": true,
+   "recall": null,
+   "share_ok": true
+  }
+ },
+ {
+  "id": "d02",
+  "split": "dev",
+  "type": "brand_purchase_drop",
+  "date": "2019-10-30",
+  "db": "ecom_s_d02",
+  "question": "请排查 2019-10-30 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "d02",
+   "split": "dev",
+   "type": "brand_purchase_drop",
+   "date": "2019-10-30",
+   "target": {
+    "dim": "brand",
+    "rank": 2
+   },
+   "strength": 0.8
+  },
+  "targets": {
+   "brand": "samsung"
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "brand": "samsung"
+    },
+    "scope": "purchase",
+    "share": 0.8,
+    "unit": "event"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "brand",
+     "value": "samsung",
+     "factor_accept": [
+      "CVR",
+      "F"
+     ],
+     "true_share": 0.7329
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.05227551193749069,
+   "base_z": -0.7232416000278852,
+   "scn_rel": -0.19570817554539444,
+   "scn_z": -2.7076596435677773,
+   "fetch_seconds": 6.7
+  },
+  "algo": {
+   "date": "2019-10-30",
+   "is_anomaly": true,
+   "direction": "down",
+   "change_pct": -0.1957,
+   "main_factor": "CVR",
+   "pattern": "concentrated",
+   "root_causes": [
+    {
+     "dimension": "brand",
+     "value": "samsung",
+     "factor": "CVR",
+     "contribution_share": 0.9768,
+     "path": [
+      {
+       "dimension": "brand",
+       "value": "samsung"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "hypotheses": []
+  },
+  "algo_score": {
+   "has_conclusion": true,
+   "top1": true,
+   "anomaly_ok": true,
+   "pattern_ok": true,
+   "false_alarm": null,
+   "factor_ok": null,
+   "cause_factor_ok": true,
+   "recall": null,
+   "share_ok": false
+  }
+ },
+ {
+  "id": "d03",
+  "split": "dev",
+  "type": "category_traffic_drop",
+  "date": "2019-10-11",
+  "db": "ecom_s_d03",
+  "question": "请排查 2019-10-11 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "d03",
+   "split": "dev",
+   "type": "category_traffic_drop",
+   "date": "2019-10-11",
+   "target": {
+    "dim": "level1",
+    "rank": 1,
+    "by": "uv"
+   },
+   "strength": 0.4
+  },
+  "targets": {
+   "level1": "electronics"
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "level1": "electronics"
+    },
+    "scope": "all",
+    "share": 0.4,
+    "unit": "user"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "level1",
+     "value": "electronics",
+     "factor_accept": [
+      "UV"
+     ],
+     "true_share": 1.2274
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": 0.05425300481716522,
+   "base_z": 0.6274249568250065,
+   "scn_rel": -0.23860573533581098,
+   "scn_z": -2.75942675794252,
+   "fetch_seconds": 6.4
+  },
+  "algo": {
+   "date": "2019-10-11",
+   "is_anomaly": true,
+   "direction": "down",
+   "change_pct": -0.2386,
+   "main_factor": "P",
+   "pattern": "concentrated",
+   "root_causes": [
+    {
+     "dimension": "level1",
+     "value": "electronics",
+     "factor": "UV",
+     "contribution_share": 1.0626,
+     "path": [
+      {
+       "dimension": "level1",
+       "value": "electronics"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "hypotheses": []
+  },
+  "algo_score": {
+   "has_conclusion": true,
+   "top1": true,
+   "anomaly_ok": true,
+   "pattern_ok": true,
+   "false_alarm": null,
+   "factor_ok": null,
+   "cause_factor_ok": true,
+   "recall": null,
+   "share_ok": false
+  }
+ },
+ {
+  "id": "d04",
+  "split": "dev",
+  "type": "brand_price_cut",
+  "date": "2019-10-31",
+  "db": "ecom_s_d04",
+  "question": "请排查 2019-10-31 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "d04",
+   "split": "dev",
+   "type": "brand_price_cut",
+   "date": "2019-10-31",
+   "target": {
+    "dim": "brand",
+    "rank": 1
+   },
+   "strength": 0.45
+  },
+  "targets": {
+   "brand": "apple"
+  },
+  "ops": [
+   {
+    "op": "price",
+    "filter": {
+     "brand": "apple"
+    },
+    "factor": 0.55
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [
+    "P"
+   ],
+   "causes": [
+    {
+     "dimension": "brand",
+     "value": "apple",
+     "factor_accept": [
+      "P"
+     ],
+     "true_share": 0.876
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.03242494078117597,
+   "base_z": -0.44562268447681025,
+   "scn_rel": -0.2615416738901938,
+   "scn_z": -3.5944214550167586,
+   "fetch_seconds": 6.4
+  },
+  "algo": {
+   "date": "2019-10-31",
+   "is_anomaly": true,
+   "direction": "down",
+   "change_pct": -0.2615,
+   "main_factor": "P",
+   "pattern": "concentrated",
+   "root_causes": [
+    {
+     "dimension": "brand",
+     "value": "apple",
+     "factor": "P",
+     "contribution_share": 0.7692,
+     "path": [
+      {
+       "dimension": "brand",
+       "value": "apple"
+      },
+      {
+       "dimension": "level2",
+       "value": "smartphone"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "hypotheses": []
+  },
+  "algo_score": {
+   "has_conclusion": true,
+   "top1": true,
+   "anomaly_ok": true,
+   "pattern_ok": true,
+   "false_alarm": null,
+   "factor_ok": true,
+   "cause_factor_ok": true,
+   "recall": null,
+   "share_ok": true
+  }
+ },
+ {
+  "id": "d05",
+  "split": "dev",
+  "type": "site_traffic_drop",
+  "date": "2019-10-12",
+  "db": "ecom_s_d05",
+  "question": "请排查 2019-10-12 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "d05",
+   "split": "dev",
+   "type": "site_traffic_drop",
+   "date": "2019-10-12",
+   "strength": 0.3
+  },
+  "targets": {},
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {},
+    "scope": "all",
+    "share": 0.3,
+    "unit": "user"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "broad",
+   "main_factor_accept": [
+    "UV"
+   ],
+   "causes": []
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": 0.03395993916422846,
+   "base_z": 0.5763734578218086,
+   "scn_rel": -0.2531353591376254,
+   "scn_z": -4.296253345377075,
+   "fetch_seconds": 6.2
+  },
+  "algo": {
+   "date": "2019-10-12",
+   "is_anomaly": true,
+   "direction": "down",
+   "change_pct": -0.2531,
+   "main_factor": "UV",
+   "pattern": "broad",
+   "root_causes": [],
+   "confidence": "medium",
+   "hypotheses": [
+    "变化分布在所有维度上，没有集中的元素，可能是全站流量或外部因素"
+   ]
+  },
+  "algo_score": {
+   "has_conclusion": true,
+   "top1": true,
+   "anomaly_ok": true,
+   "pattern_ok": true,
+   "false_alarm": false,
+   "factor_ok": true,
+   "cause_factor_ok": null,
+   "recall": null,
+   "share_ok": null
+  }
+ },
+ {
+  "id": "d06",
+  "split": "dev",
+  "type": "new_user_drop",
+  "date": "2019-10-27",
+  "db": "ecom_s_d06",
+  "question": "请排查 2019-10-27 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "d06",
+   "split": "dev",
+   "type": "new_user_drop",
+   "date": "2019-10-27",
+   "strength": 0.8
+  },
+  "targets": {
+   "user_type": "new"
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "new_user": true
+    },
+    "scope": "all",
+    "share": 0.8,
+    "unit": "user"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [
+    "UV"
+   ],
+   "causes": [
+    {
+     "dimension": "user_type",
+     "value": "new",
+     "factor_accept": [
+      "UV"
+     ],
+     "true_share": 0.8195
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.04102883434141402,
+   "base_z": -0.9004573778595362,
+   "scn_rel": -0.22736052844473076,
+   "scn_z": -4.989867944297173,
+   "fetch_seconds": 6.6
+  },
+  "algo": {
+   "date": "2019-10-27",
+   "is_anomaly": true,
+   "direction": "down",
+   "change_pct": -0.2274,
+   "main_factor": "UV",
+   "pattern": "concentrated",
+   "root_causes": [
+    {
+     "dimension": "user_type",
+     "value": "new",
+     "factor": "UV",
+     "contribution_share": 0.8667,
+     "path": [
+      {
+       "dimension": "user_type",
+       "value": "new"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "hypotheses": []
+  },
+  "algo_score": {
+   "has_conclusion": true,
+   "top1": true,
+   "anomaly_ok": true,
+   "pattern_ok": true,
+   "false_alarm": null,
+   "factor_ok": true,
+   "cause_factor_ok": true,
+   "recall": null,
+   "share_ok": true
+  }
+ },
+ {
+  "id": "d07",
+  "split": "dev",
+  "type": "hour_outage",
+  "date": "2019-10-09",
+  "db": "ecom_s_d07",
+  "question": "请排查 2019-10-09 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "d07",
+   "split": "dev",
+   "type": "hour_outage",
+   "date": "2019-10-09",
+   "hours": [
+    13,
+    14,
+    15
+   ]
+  },
+  "targets": {
+   "hours": [
+    13,
+    14,
+    15
+   ]
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "hours": [
+      13,
+      14,
+      15
+     ]
+    },
+    "scope": "all",
+    "share": 1.0
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "data_issue",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "hour",
+     "value": "13",
+     "factor_accept": [],
+     "true_share": null
+    },
+    {
+     "dimension": "hour",
+     "value": "14",
+     "factor_accept": [],
+     "true_share": null
+    },
+    {
+     "dimension": "hour",
+     "value": "15",
+     "factor_accept": [],
+     "true_share": null
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.026983378262186664,
+   "base_z": -0.25313530824905206,
+   "scn_rel": -0.16309479903177748,
+   "scn_z": -1.5300179179039748,
+   "fetch_seconds": 6.2
+  },
+  "algo": {
+   "date": "2019-10-09",
+   "is_anomaly": true,
+   "direction": "down",
+   "change_pct": -0.1631,
+   "main_factor": "",
+   "pattern": "data_issue",
+   "root_causes": [
+    {
+     "dimension": "hour",
+     "value": "13",
+     "factor": "UV",
+     "contribution_share": null,
+     "path": []
+    },
+    {
+     "dimension": "hour",
+     "value": "14",
+     "factor": "UV",
+     "contribution_share": null,
+     "path": []
+    },
+    {
+     "dimension": "hour",
+     "value": "15",
+     "factor": "UV",
+     "contribution_share": null,
+     "path": []
+    }
+   ],
+   "confidence": "medium",
+   "hypotheses": [
+    "这些小时的浏览、加购、购买同时接近 0，疑似系统故障或数据管道缺失，需要查系统日志"
+   ]
+  },
+  "algo_score": {
+   "has_conclusion": true,
+   "top1": true,
+   "anomaly_ok": true,
+   "pattern_ok": true,
+   "false_alarm": null,
+   "factor_ok": null,
+   "cause_factor_ok": null,
+   "recall": null,
+   "share_ok": null
+  }
+ },
+ {
+  "id": "d08",
+  "split": "dev",
+  "type": "brand_promo_spike",
+  "date": "2019-10-31",
+  "db": "ecom_s_d08",
+  "question": "请排查 2019-10-31 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "d08",
+   "split": "dev",
+   "type": "brand_promo_spike",
+   "date": "2019-10-31",
+   "target": {
+    "dim": "brand",
+    "rank": 2
+   },
+   "strength": 1.0
+  },
+  "targets": {
+   "brand": "samsung"
+  },
+  "ops": [
+   {
+    "op": "duplicate",
+    "filter": {
+     "brand": "samsung"
+    },
+    "scope": "purchase",
+    "share": 1.0,
+    "unit": "event"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "up",
+   "pattern": "concentrated",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "brand",
+     "value": "samsung",
+     "factor_accept": [
+      "F"
+     ],
+     "true_share": 1.2132
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.03242494078117597,
+   "base_z": -0.44562268447681025,
+   "scn_rel": 0.15206622609204357,
+   "scn_z": 2.0898776761601363,
+   "fetch_seconds": 6.3
+  },
+  "algo": {
+   "date": "2019-10-31",
+   "is_anomaly": true,
+   "direction": "up",
+   "change_pct": 0.1521,
+   "main_factor": "F",
+   "pattern": "concentrated",
+   "root_causes": [
+    {
+     "dimension": "brand",
+     "value": "samsung",
+     "factor": "F",
+     "contribution_share": 1.0029,
+     "path": [
+      {
+       "dimension": "brand",
+       "value": "samsung"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "hypotheses": []
+  },
+  "algo_score": {
+   "has_conclusion": true,
+   "top1": true,
+   "anomaly_ok": true,
+   "pattern_ok": true,
+   "false_alarm": null,
+   "factor_ok": null,
+   "cause_factor_ok": true,
+   "recall": null,
+   "share_ok": false
+  }
+ },
+ {
+  "id": "d09",
+  "split": "dev",
+  "type": "no_anomaly",
+  "date": "2019-10-10",
+  "db": "ecom_s_d09",
+  "question": "请排查 2019-10-10 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "d09",
+   "split": "dev",
+   "type": "no_anomaly",
+   "date": "2019-10-10"
+  },
+  "targets": {},
+  "ops": [],
+  "expected": {
+   "is_anomaly": false,
+   "direction": "",
+   "pattern": "normal",
+   "main_factor_accept": [],
+   "causes": []
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": 0.00621508419777661,
+   "base_z": 0.06413061111439244,
+   "scn_rel": 0.00621508419777661,
+   "scn_z": 0.06413061111439244,
+   "fetch_seconds": 6.3
+  },
+  "algo": {
+   "date": "2019-10-10",
+   "is_anomaly": false,
+   "direction": "up",
+   "change_pct": 0.0062,
+   "main_factor": "",
+   "pattern": "normal",
+   "root_causes": [],
+   "confidence": "high",
+   "hypotheses": []
+  },
+  "algo_score": {
+   "has_conclusion": true,
+   "top1": true,
+   "anomaly_ok": true,
+   "pattern_ok": true,
+   "false_alarm": false,
+   "factor_ok": null,
+   "cause_factor_ok": null,
+   "recall": null,
+   "share_ok": null
+  }
+ },
+ {
+  "id": "d10",
+  "split": "dev",
+  "type": "level2_purchase_drop",
+  "date": "2019-10-30",
+  "db": "ecom_s_d10",
+  "question": "请排查 2019-10-30 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "d10",
+   "split": "dev",
+   "type": "level2_purchase_drop",
+   "date": "2019-10-30",
+   "target": {
+    "dim": "level2",
+    "rank": 1
+   },
+   "strength": 0.5
+  },
+  "targets": {
+   "level2": "smartphone"
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "level2": "smartphone"
+    },
+    "scope": "purchase",
+    "share": 0.5,
+    "unit": "event"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "level2",
+     "value": "smartphone",
+     "factor_accept": [
+      "CVR",
+      "F"
+     ],
+     "true_share": 0.8654
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.05227551193749069,
+   "base_z": -0.7232416000278852,
+   "scn_rel": -0.3882622043429622,
+   "scn_z": -5.3716810700034365,
+   "fetch_seconds": 6.6
+  },
+  "algo": {
+   "date": "2019-10-30",
+   "is_anomaly": true,
+   "direction": "down",
+   "change_pct": -0.3883,
+   "main_factor": "CVR",
+   "pattern": "concentrated",
+   "root_causes": [
+    {
+     "dimension": "level2",
+     "value": "smartphone",
+     "factor": "CVR",
+     "contribution_share": 0.8796,
+     "path": [
+      {
+       "dimension": "level2",
+       "value": "smartphone"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "hypotheses": []
+  },
+  "algo_score": {
+   "has_conclusion": true,
+   "top1": true,
+   "anomaly_ok": true,
+   "pattern_ok": true,
+   "false_alarm": null,
+   "factor_ok": null,
+   "cause_factor_ok": true,
+   "recall": null,
+   "share_ok": true
+  }
+ },
+ {
+  "id": "d11",
+  "split": "dev",
+  "type": "no_anomaly",
+  "date": "2019-10-31",
+  "db": "ecom_s_d11",
+  "question": "请排查 2019-10-31 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "d11",
+   "split": "dev",
+   "type": "no_anomaly",
+   "date": "2019-10-31"
+  },
+  "targets": {},
+  "ops": [],
+  "expected": {
+   "is_anomaly": false,
+   "direction": "",
+   "pattern": "normal",
+   "main_factor_accept": [],
+   "causes": []
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.03242494078117597,
+   "base_z": -0.44562268447681025,
+   "scn_rel": -0.03242494078117597,
+   "scn_z": -0.44562268447681025,
+   "fetch_seconds": 6.3
+  },
+  "algo": {
+   "date": "2019-10-31",
+   "is_anomaly": false,
+   "direction": "down",
+   "change_pct": -0.0324,
+   "main_factor": "",
+   "pattern": "normal",
+   "root_causes": [],
+   "confidence": "high",
+   "hypotheses": []
+  },
+  "algo_score": {
+   "has_conclusion": true,
+   "top1": true,
+   "anomaly_ok": true,
+   "pattern_ok": true,
+   "false_alarm": false,
+   "factor_ok": null,
+   "cause_factor_ok": null,
+   "recall": null,
+   "share_ok": null
+  }
+ },
+ {
+  "id": "d12",
+  "split": "dev",
+  "type": "brand_purchase_drop",
+  "date": "2019-10-12",
+  "db": "ecom_s_d12",
+  "question": "请排查 2019-10-12 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "d12",
+   "split": "dev",
+   "type": "brand_purchase_drop",
+   "date": "2019-10-12",
+   "target": {
+    "dim": "brand",
+    "rank": 1
+   },
+   "strength": 0.4
+  },
+  "targets": {
+   "brand": "apple"
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "brand": "apple"
+    },
+    "scope": "purchase",
+    "share": 0.4,
+    "unit": "event"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "brand",
+     "value": "apple",
+     "factor_accept": [
+      "CVR",
+      "F"
+     ],
+     "true_share": 1.2264
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": 0.03395993916422846,
+   "base_z": 0.5763734578218086,
+   "scn_rel": -0.1500137371641177,
+   "scn_z": -2.5460568698877637,
+   "fetch_seconds": 6.6
+  },
+  "algo": {
+   "date": "2019-10-12",
+   "is_anomaly": true,
+   "direction": "down",
+   "change_pct": -0.15,
+   "main_factor": "P",
+   "pattern": "concentrated",
+   "root_causes": [
+    {
+     "dimension": "brand",
+     "value": "apple",
+     "factor": "CVR",
+     "contribution_share": 1.1359,
+     "path": [
+      {
+       "dimension": "brand",
+       "value": "apple"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "hypotheses": []
+  },
+  "algo_score": {
+   "has_conclusion": true,
+   "top1": true,
+   "anomaly_ok": true,
+   "pattern_ok": true,
+   "false_alarm": null,
+   "factor_ok": null,
+   "cause_factor_ok": true,
+   "recall": null,
+   "share_ok": true
+  }
+ },
+ {
+  "id": "d13",
+  "split": "dev",
+  "type": "site_traffic_drop",
+  "date": "2019-10-31",
+  "db": "ecom_s_d13",
+  "question": "请排查 2019-10-31 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "d13",
+   "split": "dev",
+   "type": "site_traffic_drop",
+   "date": "2019-10-31",
+   "strength": 0.2
+  },
+  "targets": {},
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {},
+    "scope": "all",
+    "share": 0.2,
+    "unit": "user"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "broad",
+   "main_factor_accept": [
+    "UV"
+   ],
+   "causes": []
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.03242494078117597,
+   "base_z": -0.44562268447681025,
+   "scn_rel": -0.20925909047572944,
+   "scn_z": -2.875891070342563,
+   "fetch_seconds": 6.7
+  },
+  "algo": {
+   "date": "2019-10-31",
+   "is_anomaly": true,
+   "direction": "down",
+   "change_pct": -0.2093,
+   "main_factor": "UV",
+   "pattern": "broad",
+   "root_causes": [],
+   "confidence": "medium",
+   "hypotheses": [
+    "变化分布在所有维度上，没有集中的元素，可能是全站流量或外部因素"
+   ]
+  },
+  "algo_score": {
+   "has_conclusion": true,
+   "top1": true,
+   "anomaly_ok": true,
+   "pattern_ok": true,
+   "false_alarm": false,
+   "factor_ok": true,
+   "cause_factor_ok": null,
+   "recall": null,
+   "share_ok": null
+  }
+ },
+ {
+  "id": "d14",
+  "split": "dev",
+  "type": "level2_purchase_drop",
+  "date": "2019-10-27",
+  "db": "ecom_s_d14",
+  "question": "请排查 2019-10-27 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "d14",
+   "split": "dev",
+   "type": "level2_purchase_drop",
+   "date": "2019-10-27",
+   "target": {
+    "dim": "level2",
+    "rank": 1
+   },
+   "strength": 0.35
+  },
+  "targets": {
+   "level2": "smartphone"
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "level2": "smartphone"
+    },
+    "scope": "purchase",
+    "share": 0.35,
+    "unit": "event"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "level2",
+     "value": "smartphone",
+     "factor_accept": [
+      "CVR",
+      "F"
+     ],
+     "true_share": 0.8469
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.04102883434141402,
+   "base_z": -0.9004573778595362,
+   "scn_rel": -0.26805039142167775,
+   "scn_z": -5.882885937857425,
+   "fetch_seconds": 7.3
+  },
+  "algo": {
+   "date": "2019-10-27",
+   "is_anomaly": true,
+   "direction": "down",
+   "change_pct": -0.2681,
+   "main_factor": "CVR",
+   "pattern": "concentrated",
+   "root_causes": [
+    {
+     "dimension": "level2",
+     "value": "smartphone",
+     "factor": "CVR",
+     "contribution_share": 0.9605,
+     "path": [
+      {
+       "dimension": "level2",
+       "value": "smartphone"
+      }
+     ]
+    }
+   ],
+   "confidence": "high",
+   "hypotheses": []
+  },
+  "algo_score": {
+   "has_conclusion": true,
+   "top1": true,
+   "anomaly_ok": true,
+   "pattern_ok": true,
+   "false_alarm": null,
+   "factor_ok": null,
+   "cause_factor_ok": true,
+   "recall": null,
+   "share_ok": true
+  }
+ },
+ {
+  "id": "r01",
+  "split": "real",
+  "type": "natural",
+  "date": "2019-11-15",
+  "db": "ecom_s_r01",
+  "question": "请排查 2019-11-15 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "r01",
+   "split": "real",
+   "type": "natural",
+   "date": "2019-11-15",
+   "note": "原始数据购买事件为 0（浏览 574 万、加购 48 万条正常）",
+   "expected": {
+    "is_anomaly": true,
+    "direction": "down",
+    "pattern": "data_issue"
+   }
+  },
+  "targets": {},
+  "ops": [],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "data_issue",
+   "main_factor_accept": [],
+   "causes": []
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -1.0,
+   "base_z": -18.33403821899317,
+   "scn_rel": -1.0,
+   "scn_z": -18.33403821899317,
+   "fetch_seconds": 13.4
+  },
+  "algo": {
+   "date": "2019-11-15",
+   "is_anomaly": true,
+   "direction": "down",
+   "change_pct": -1.0,
+   "main_factor": "",
+   "pattern": "data_issue",
+   "root_causes": [],
+   "confidence": "medium",
+   "hypotheses": [
+    "当天购买事件整体接近 0，而其他事件正常，疑似购买埋点丢失，需要查埋点和数据管道"
+   ]
+  },
+  "algo_score": {
+   "has_conclusion": true,
+   "top1": true,
+   "anomaly_ok": true,
+   "pattern_ok": true,
+   "false_alarm": null,
+   "factor_ok": null,
+   "cause_factor_ok": null,
+   "recall": null,
+   "share_ok": null
+  }
+ },
+ {
+  "id": "t01",
+  "split": "test",
+  "type": "brand_purchase_drop",
+  "date": "2019-11-07",
+  "db": "ecom_s_t01",
+  "question": "请排查 2019-11-07 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "t01",
+   "split": "test",
+   "type": "brand_purchase_drop",
+   "date": "2019-11-07",
+   "target": {
+    "dim": "brand",
+    "rank": 2
+   },
+   "strength": 0.9
+  },
+  "targets": {
+   "brand": "samsung"
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "brand": "samsung"
+    },
+    "scope": "purchase",
+    "share": 0.9,
+    "unit": "event"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "brand",
+     "value": "samsung",
+     "factor_accept": [
+      "CVR",
+      "F"
+     ],
+     "true_share": 1.2029
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": 0.031072754652820667,
+   "base_z": 0.47625881171536527,
+   "scn_rel": -0.15317665514336354,
+   "scn_z": -2.3477716274662686,
+   "fetch_seconds": 7.8
+  },
+  "algo": null,
+  "algo_score": null
+ },
+ {
+  "id": "t02",
+  "split": "test",
+  "type": "category_traffic_drop",
+  "date": "2019-11-09",
+  "db": "ecom_s_t02",
+  "question": "请排查 2019-11-09 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "t02",
+   "split": "test",
+   "type": "category_traffic_drop",
+   "date": "2019-11-09",
+   "target": {
+    "dim": "level1",
+    "rank": 1,
+    "by": "uv"
+   },
+   "strength": 0.5
+  },
+  "targets": {
+   "level1": "electronics"
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "level1": "electronics"
+    },
+    "scope": "all",
+    "share": 0.5,
+    "unit": "user"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "level1",
+     "value": "electronics",
+     "factor_accept": [
+      "UV"
+     ],
+     "true_share": 0.9049
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.037078419897583315,
+   "base_z": -0.5038997375426926,
+   "scn_rel": -0.38981547539696204,
+   "scn_z": -5.297634480788967,
+   "fetch_seconds": 9.5
+  },
+  "algo": null,
+  "algo_score": null
+ },
+ {
+  "id": "t03",
+  "split": "test",
+  "type": "brand_price_cut",
+  "date": "2019-11-05",
+  "db": "ecom_s_t03",
+  "question": "请排查 2019-11-05 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "t03",
+   "split": "test",
+   "type": "brand_price_cut",
+   "date": "2019-11-05",
+   "target": {
+    "dim": "brand",
+    "rank": 1
+   },
+   "strength": 0.5
+  },
+  "targets": {
+   "brand": "apple"
+  },
+  "ops": [
+   {
+    "op": "price",
+    "filter": {
+     "brand": "apple"
+    },
+    "factor": 0.5
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [
+    "P"
+   ],
+   "causes": [
+    {
+     "dimension": "brand",
+     "value": "apple",
+     "factor_accept": [
+      "P"
+     ],
+     "true_share": 0.9961
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.0008761029451210822,
+   "base_z": -0.01245082247949388,
+   "scn_rel": -0.22586527857466143,
+   "scn_z": -3.209906442473991,
+   "fetch_seconds": 8.7
+  },
+  "algo": null,
+  "algo_score": null
+ },
+ {
+  "id": "t04",
+  "split": "test",
+  "type": "site_traffic_drop",
+  "date": "2019-11-27",
+  "db": "ecom_s_t04",
+  "question": "请排查 2019-11-27 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "t04",
+   "split": "test",
+   "type": "site_traffic_drop",
+   "date": "2019-11-27",
+   "strength": 0.25
+  },
+  "targets": {},
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {},
+    "scope": "all",
+    "share": 0.25,
+    "unit": "user"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "broad",
+   "main_factor_accept": [
+    "UV"
+   ],
+   "causes": []
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": 0.032066531614151295,
+   "base_z": 0.8583023674480974,
+   "scn_rel": -0.21636026056922808,
+   "scn_z": -5.791163388132176,
+   "fetch_seconds": 9.0
+  },
+  "algo": null,
+  "algo_score": null
+ },
+ {
+  "id": "t05",
+  "split": "test",
+  "type": "new_user_drop",
+  "date": "2019-11-13",
+  "db": "ecom_s_t05",
+  "question": "请排查 2019-11-13 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "t05",
+   "split": "test",
+   "type": "new_user_drop",
+   "date": "2019-11-13",
+   "strength": 0.85
+  },
+  "targets": {
+   "user_type": "new"
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "new_user": true
+    },
+    "scope": "all",
+    "share": 0.85,
+    "unit": "user"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [
+    "UV"
+   ],
+   "causes": [
+    {
+     "dimension": "user_type",
+     "value": "new",
+     "factor_accept": [
+      "UV"
+     ],
+     "true_share": 0.8683
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.02304794297779733,
+   "base_z": -0.4253346641334366,
+   "scn_rel": -0.17506335821812036,
+   "scn_z": -3.2306794034289967,
+   "fetch_seconds": 11.3
+  },
+  "algo": null,
+  "algo_score": null
+ },
+ {
+  "id": "t06",
+  "split": "test",
+  "type": "hour_outage",
+  "date": "2019-11-11",
+  "db": "ecom_s_t06",
+  "question": "请排查 2019-11-11 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "t06",
+   "split": "test",
+   "type": "hour_outage",
+   "date": "2019-11-11",
+   "hours": [
+    18,
+    19,
+    20
+   ]
+  },
+  "targets": {
+   "hours": [
+    18,
+    19,
+    20
+   ]
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "hours": [
+      18,
+      19,
+      20
+     ]
+    },
+    "scope": "all",
+    "share": 1.0
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "data_issue",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "hour",
+     "value": "18",
+     "factor_accept": [],
+     "true_share": null
+    },
+    {
+     "dimension": "hour",
+     "value": "19",
+     "factor_accept": [],
+     "true_share": null
+    },
+    {
+     "dimension": "hour",
+     "value": "20",
+     "factor_accept": [],
+     "true_share": null
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": 0.024969146910606366,
+   "base_z": 0.47100034358351345,
+   "scn_rel": -0.045166396686220134,
+   "scn_z": -0.8519869915380459,
+   "fetch_seconds": 13.9
+  },
+  "algo": null,
+  "algo_score": null
+ },
+ {
+  "id": "t07",
+  "split": "test",
+  "type": "brand_promo_spike",
+  "date": "2019-11-25",
+  "db": "ecom_s_t07",
+  "question": "请排查 2019-11-25 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "t07",
+   "split": "test",
+   "type": "brand_promo_spike",
+   "date": "2019-11-25",
+   "target": {
+    "dim": "brand",
+    "rank": 1
+   },
+   "strength": 0.5
+  },
+  "targets": {
+   "brand": "apple"
+  },
+  "ops": [
+   {
+    "op": "duplicate",
+    "filter": {
+     "brand": "apple"
+    },
+    "scope": "purchase",
+    "share": 0.5,
+    "unit": "event"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "up",
+   "pattern": "concentrated",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "brand",
+     "value": "apple",
+     "factor_accept": [
+      "F"
+     ],
+     "true_share": 1.0586
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.013506824577856014,
+   "base_z": -0.15062218398750396,
+   "scn_rel": 0.23040740619271438,
+   "scn_z": 2.5694023438002813,
+   "fetch_seconds": 10.9
+  },
+  "algo": null,
+  "algo_score": null
+ },
+ {
+  "id": "t08",
+  "split": "test",
+  "type": "no_anomaly",
+  "date": "2019-11-28",
+  "db": "ecom_s_t08",
+  "question": "请排查 2019-11-28 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "t08",
+   "split": "test",
+   "type": "no_anomaly",
+   "date": "2019-11-28"
+  },
+  "targets": {},
+  "ops": [],
+  "expected": {
+   "is_anomaly": false,
+   "direction": "",
+   "pattern": "normal",
+   "main_factor_accept": [],
+   "causes": []
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": 0.0063736900817696895,
+   "base_z": 0.16279042988781905,
+   "scn_rel": 0.0063736900817696895,
+   "scn_z": 0.16279042988781905,
+   "fetch_seconds": 9.8
+  },
+  "algo": null,
+  "algo_score": null
+ },
+ {
+  "id": "t09",
+  "split": "test",
+  "type": "level2_purchase_drop",
+  "date": "2019-11-26",
+  "db": "ecom_s_t09",
+  "question": "请排查 2019-11-26 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "t09",
+   "split": "test",
+   "type": "level2_purchase_drop",
+   "date": "2019-11-26",
+   "target": {
+    "dim": "level2",
+    "rank": 1
+   },
+   "strength": 0.45
+  },
+  "targets": {
+   "level2": "smartphone"
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "level2": "smartphone"
+    },
+    "scope": "purchase",
+    "share": 0.45,
+    "unit": "event"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "level2",
+     "value": "smartphone",
+     "factor_accept": [
+      "CVR",
+      "F"
+     ],
+     "true_share": 0.9557
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.014872261650649365,
+   "base_z": -0.4031685319214472,
+   "scn_rel": -0.3354433591176381,
+   "scn_z": -9.09345261770268,
+   "fetch_seconds": 10.2
+  },
+  "algo": null,
+  "algo_score": null
+ },
+ {
+  "id": "t10",
+  "split": "test",
+  "type": "two_causes",
+  "date": "2019-11-10",
+  "db": "ecom_s_t10",
+  "question": "请排查 2019-11-10 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "t10",
+   "split": "test",
+   "type": "two_causes",
+   "date": "2019-11-10",
+   "parts": [
+    {
+     "type": "brand_purchase_drop",
+     "target": {
+      "dim": "brand",
+      "rank": 1
+     },
+     "strength": 0.4
+    },
+    {
+     "type": "brand_price_cut",
+     "target": {
+      "dim": "brand",
+      "rank": 2
+     },
+     "strength": 0.6
+    }
+   ]
+  },
+  "targets": {
+   "part1": {
+    "brand": "apple"
+   },
+   "part2": {
+    "brand": "samsung"
+   }
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "brand": "apple"
+    },
+    "scope": "purchase",
+    "share": 0.4,
+    "unit": "event"
+   },
+   {
+    "op": "price",
+    "filter": {
+     "brand": "samsung"
+    },
+    "factor": 0.4
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "brand",
+     "value": "apple",
+     "factor_accept": [
+      "CVR",
+      "F"
+     ],
+     "true_share": 0.4902
+    },
+    {
+     "dimension": "brand",
+     "value": "samsung",
+     "factor_accept": [
+      "P"
+     ],
+     "true_share": 0.3924
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.04124658910013512,
+   "base_z": -0.8164184271884121,
+   "scn_rel": -0.3514342116092132,
+   "scn_z": -6.956147709708521,
+   "fetch_seconds": 10.8
+  },
+  "algo": null,
+  "algo_score": null
+ },
+ {
+  "id": "t11",
+  "split": "test",
+  "type": "high_price_mix",
+  "date": "2019-11-14",
+  "db": "ecom_s_t11",
+  "question": "请排查 2019-11-14 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "t11",
+   "split": "test",
+   "type": "high_price_mix",
+   "date": "2019-11-14",
+   "strength": 0.85
+  },
+  "targets": {
+   "price_band": "1000+"
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "min_price": 1000
+    },
+    "scope": "purchase",
+    "share": 0.85,
+    "unit": "event"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "price_band",
+     "value": "1000+",
+     "factor_accept": [
+      "CVR",
+      "F"
+     ],
+     "true_share": 1.3187
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": 0.052408548877733274,
+   "base_z": 1.0253049587878034,
+   "scn_rel": -0.1600225373682156,
+   "scn_z": -3.130632398622795,
+   "fetch_seconds": 11.8
+  },
+  "algo": null,
+  "algo_score": null
+ },
+ {
+  "id": "t12",
+  "split": "test",
+  "type": "no_anomaly",
+  "date": "2019-11-05",
+  "db": "ecom_s_t12",
+  "question": "请排查 2019-11-05 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "t12",
+   "split": "test",
+   "type": "no_anomaly",
+   "date": "2019-11-05"
+  },
+  "targets": {},
+  "ops": [],
+  "expected": {
+   "is_anomaly": false,
+   "direction": "",
+   "pattern": "normal",
+   "main_factor_accept": [],
+   "causes": []
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.0008761029451210822,
+   "base_z": -0.01245082247949388,
+   "scn_rel": -0.0008761029451210822,
+   "scn_z": -0.01245082247949388,
+   "fetch_seconds": 8.4
+  },
+  "algo": null,
+  "algo_score": null
+ },
+ {
+  "id": "t13",
+  "split": "test",
+  "type": "high_price_mix",
+  "date": "2019-11-28",
+  "db": "ecom_s_t13",
+  "question": "请排查 2019-11-28 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "t13",
+   "split": "test",
+   "type": "high_price_mix",
+   "date": "2019-11-28",
+   "strength": 0.8
+  },
+  "targets": {
+   "price_band": "1000+"
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "min_price": 1000
+    },
+    "scope": "purchase",
+    "share": 0.8,
+    "unit": "event"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "price_band",
+     "value": "1000+",
+     "factor_accept": [
+      "CVR",
+      "F"
+     ],
+     "true_share": 1.0322
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": 0.0063736900817696895,
+   "base_z": 0.16279042988781905,
+   "scn_rel": -0.1982279385685095,
+   "scn_z": -5.062940136929967,
+   "fetch_seconds": 9.5
+  },
+  "algo": null,
+  "algo_score": null
+ },
+ {
+  "id": "t14",
+  "split": "test",
+  "type": "two_causes",
+  "date": "2019-11-13",
+  "db": "ecom_s_t14",
+  "question": "请排查 2019-11-13 的 GMV 是否有异常；如果有，定位原因。",
+  "spec": {
+   "id": "t14",
+   "split": "test",
+   "type": "two_causes",
+   "date": "2019-11-13",
+   "parts": [
+    {
+     "type": "brand_purchase_drop",
+     "target": {
+      "dim": "brand",
+      "rank": 2
+     },
+     "strength": 0.8
+    },
+    {
+     "type": "new_user_drop",
+     "strength": 0.7
+    }
+   ]
+  },
+  "targets": {
+   "part1": {
+    "brand": "samsung"
+   },
+   "part2": {
+    "user_type": "new"
+   }
+  },
+  "ops": [
+   {
+    "op": "delete",
+    "filter": {
+     "brand": "samsung"
+    },
+    "scope": "purchase",
+    "share": 0.8,
+    "unit": "event"
+   },
+   {
+    "op": "delete",
+    "filter": {
+     "new_user": true
+    },
+    "scope": "all",
+    "share": 0.7,
+    "unit": "user"
+   }
+  ],
+  "expected": {
+   "is_anomaly": true,
+   "direction": "down",
+   "pattern": "concentrated",
+   "main_factor_accept": [],
+   "causes": [
+    {
+     "dimension": "brand",
+     "value": "samsung",
+     "factor_accept": [
+      "CVR",
+      "F"
+     ],
+     "true_share": 0.5386
+    },
+    {
+     "dimension": "user_type",
+     "value": "new",
+     "factor_accept": [
+      "UV"
+     ],
+     "true_share": 0.4786
+    }
+   ]
+  },
+  "valid": true,
+  "problems": [],
+  "check": {
+   "skipped_days": [],
+   "base_rel": -0.02304794297779733,
+   "base_z": -0.4253346641334366,
+   "scn_rel": -0.25930484158779044,
+   "scn_z": -4.785300701722639,
+   "fetch_seconds": 14.0
+  },
+  "algo": null,
+  "algo_score": null
+ }
+]
